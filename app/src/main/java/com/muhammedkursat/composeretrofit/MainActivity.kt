@@ -23,10 +23,14 @@ import androidx.compose.ui.unit.sp
 import com.muhammedkursat.composeretrofit.ui.theme.ComposeRetrofitTheme
 
 class MainActivity : ComponentActivity() {
+
+    private val BASE_URL="https://github.com/"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             MainScreen()
+            //https://github.com/
+            // KursatCodes/API-Files
         }
     }
 }
