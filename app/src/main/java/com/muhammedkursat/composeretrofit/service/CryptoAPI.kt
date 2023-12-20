@@ -5,8 +5,8 @@ import retrofit2.Call
 import retrofit2.http.GET
 
 interface CryptoAPI {
-//https://github.com/
-// KursatCodes/API-Files
-    @GET("KursatCodes/API-Files")
+    //https://raw.githubusercontent.com/
+    // KursatCodes/API-Files/master/cryptoApi.json
+    @GET("KursatCodes/API-Files/master/cryptoApi.json")
     fun getDatalar(): Call<List<CrytoModel>>
 }
