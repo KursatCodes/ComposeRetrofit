@@ -7,9 +7,13 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -53,9 +57,15 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
+
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainScreen(){
+
+    var cryptoList= remember {
+        mutableListOf<CrytoModel>()
+    }
     val BASE_URL="https://raw.githubusercontent.com/"
     val retrofit = Retrofit.Builder()
         .addConverterFactory(GsonConverterFactory.create())
@@ -70,9 +80,7 @@ fun MainScreen(){
         ) {
             if(response.isSuccessful){
                 response.body()?.let {
-                    it.forEach(){
-                        println(it.currency)
-                    }
+                    cryptoList.addAll(it)
                 }
             }
         }
@@ -82,8 +90,10 @@ fun MainScreen(){
         }
 
     })
+    MyLazy(crytos = cryptoList)
     Scaffold (topBar = {MyBar()}){
-        var myit=it
+        var my=it
+
     }
 /*Column(modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.SpaceEvenly,
@@ -101,6 +111,21 @@ fun MainScreen(){
             }
         })
     }*/
+}
+@Composable
+fun MyLazy(crytos: List<CrytoModel>){
+    LazyColumn{
+        items(crytos){cryto->
+            MyColumn(cryto)
+        }
+    }
+}
+@Composable
+fun MyColumn(crpto:CrytoModel){
+    Column (modifier = Modifier.fillMaxWidth()){
+        Text(text = crpto.price)
+        Text(text = crpto.currency)
+    }
 }
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
