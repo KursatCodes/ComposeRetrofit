@@ -1,7 +1,7 @@
 @file:OptIn(ExperimentalMaterial3Api::class)
 
 package com.muhammedkursat.composeretrofit
-/*
+
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -27,6 +27,7 @@ import androidx.compose.material3.TopAppBarColors
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -47,8 +48,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.create
 
 class MainActivity : ComponentActivity() {
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -61,14 +60,12 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
-
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainScreen(){
 
     var cryptoList= remember {
-        mutableListOf<CrytoModel>()
+        mutableStateListOf<CrytoModel>()
     }
     val BASE_URL="https://raw.githubusercontent.com/"
     val retrofit = Retrofit.Builder()
@@ -95,34 +92,18 @@ fun MainScreen(){
     Scaffold(topBar = { AppBar() }) {
         Surface(color = MaterialTheme.colorScheme.surface) {
             CryptoList(cryptos = cryptoList)
+            it.calculateBottomPadding()
         }
     }
-    /*Scaffold (topBar = { AppBar() }){
-        Surface {
-            CryptoList(cryptos = cryptoList)
-
-        }
-
-    }*/
-
 }
 @Composable
 fun CryptoList(cryptos: List<CrytoModel>) {
     LazyColumn(contentPadding = PaddingValues(5.dp)) {
-        items(cryptos) { crypto ->
-            CryptoRow(crypto = crypto)
+        items(cryptos) { it ->
+            MyColumn(crpto = it)
         }
     }
 }
-/*LazyColumn{
-        /*items(crytos){item ->
-        MyColumn(crpto = item)
-        }*/
-        items(crytos) { crypto ->
-            MyColumn(crpto = crypto)
-        }
-    }
-}*/
 @Composable
 fun CryptoRow(crypto: CrytoModel) {
     Column(modifier = Modifier.fillMaxWidth()) {
@@ -132,7 +113,7 @@ fun CryptoRow(crypto: CrytoModel) {
             fontWeight = FontWeight.Bold
         )
         Text(text = crypto.price,
-            style = MaterialTheme.typography.headlineLarge,
+            style = MaterialTheme.typography.headlineMedium,
             modifier = Modifier.padding(2.dp))
     }
 }
@@ -161,10 +142,6 @@ fun AppBar(){
         colors = TopAppBarDefaults.smallTopAppBarColors(containerColor = Color.Green),
         modifier = Modifier.background(color = Color.Blue))
 }
-@Composable
-fun Tittle(){
-
-}
 
 @Preview(showBackground = true)
 @Composable
@@ -188,9 +165,11 @@ fun MainPreview() {
                 text1.value="Selam"
             }
         })
-    }*/
+    }
 
-    */
+
+
+/*
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -279,7 +258,7 @@ class ComposeRetroTheme(function: () -> Unit) {
 
 @Composable
 fun CryptoList(cryptos: List<CrytoModel>) {
-    LazyColumn(contentPadding = PaddingValues(5.dp)) {
+    LazyColumn() {//contentPadding = PaddingValues(5.dp)
         items(cryptos) { crypto ->
             CryptoRow(crypto = crypto)
         }
@@ -306,3 +285,6 @@ fun CryptoRow(crypto: CrytoModel) {
 @Composable
 fun DefaultPreview() {
 }
+
+*/
+ */
